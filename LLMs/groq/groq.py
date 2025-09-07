@@ -25,7 +25,7 @@ def get_groq_llm(
             "langchain_groq is not installed. Install with: pip install langchain-groq"
         )
 
-    resolved_api_key = "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"
+    resolved_api_key = ""
     if not resolved_api_key:
         raise ValueError(
             "GROQ_API_KEY is not set. Provide api_key or set environment variable."
