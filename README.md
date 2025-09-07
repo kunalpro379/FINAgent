@@ -1,6 +1,6 @@
 # FINAgent
 
-A modular, plug-and-play financial research and trading agent framework. It integrates market data tools, analysis agents, memory, a graph-based orchestration layer, and a Zerodha MCP bridge for execution and UI.
+A modular financial research and trading agent framework. It integrates market data tools, analysis agents, memory, a graph-based orchestration layer, and a Zerodha MCP bridge for execution and UI.
 
 ## Features
 - Analysts for market, news, and social data
@@ -166,17 +166,6 @@ graph LR
   %% MCP bridge
   TRD --> SRV
   SRV --> CLI
-```
-
-If you prefer a standalone diagram file, see `ignore/diagram.mmd` (and `ignore/mermaid_diagram.html` for a static render).
-
-## Development Tips
-- Keep each class focused (SRP) and prefer small, composable modules.
-- Add new tools under `tools/` and register them in `tools/registry.json`.
-- New agents should reside under `agents/` and use `agents/utils` helpers.
-- Validate registries with:
-```bash
-python scripts/validate_registries.py
 ```
 
 ## License
