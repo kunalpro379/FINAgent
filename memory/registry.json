@@ -1,0 +1,5 @@
+{
+  "memory_factory": "memory.enhanced_memory.FinancialSituationMemory",
+  "manager_factory": "memory.enhanced_memory.EnhancedFinancialMemoryManager"
+}
+

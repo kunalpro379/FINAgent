@@ -1,0 +1,35 @@
+{
+  "market": {
+    "tools": [
+      "agents.utils.agent_utils.Toolkit.get_YFin_data_online",
+      "agents.utils.agent_utils.Toolkit.get_stockstats_indicators_report_online",
+      "agents.utils.agent_utils.Toolkit.get_YFin_data",
+      "agents.utils.agent_utils.Toolkit.get_stockstats_indicators_report"
+    ]
+  },
+  "social": {
+    "tools": [
+      "agents.utils.agent_utils.Toolkit.get_stock_news_openai",
+      "agents.utils.agent_utils.Toolkit.get_reddit_stock_info"
+    ]
+  },
+  "news": {
+    "tools": [
+      "agents.utils.agent_utils.Toolkit.get_global_news_openai",
+      "agents.utils.agent_utils.Toolkit.get_google_news",
+      "agents.utils.agent_utils.Toolkit.get_finnhub_news",
+      "agents.utils.agent_utils.Toolkit.get_reddit_news"
+    ]
+  },
+  "fundamentals": {
+    "tools": [
+      "agents.utils.agent_utils.Toolkit.get_fundamentals_openai",
+      "agents.utils.agent_utils.Toolkit.get_finnhub_company_insider_sentiment",
+      "agents.utils.agent_utils.Toolkit.get_finnhub_company_insider_transactions",
+      "agents.utils.agent_utils.Toolkit.get_simfin_balance_sheet",
+      "agents.utils.agent_utils.Toolkit.get_simfin_cashflow",
+      "agents.utils.agent_utils.Toolkit.get_simfin_income_stmt"
+    ]
+  }
+}
+

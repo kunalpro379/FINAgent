@@ -1,0 +1,26 @@
+{
+  "analysts": {
+    "market": "agents.analyst.MarketAnalyst.create_market_analyst",
+    "news": "agents.analyst.NewsAnalyst.create_news_analyst",
+    "social": "agents.analyst.SocialMediaAnalyst.create_social_media_analyst",
+    "fundamentals": "agents.analyst.basic_analyst.create_fundamentals_analyst"
+  },
+  "researchers": {
+    "bull": "agents.researcher.bull.create_bull_researcher",
+    "bear": "agents.researcher.bear.create_bear_researcher"
+  },
+  "managers": {
+    "research": "agents.Managers.ResearchManager.create_research_manager",
+    "risk": "agents.Managers.RiskMngmnt.create_risk_manager"
+  },
+  "risk_roles": {
+    "risky": "agents.RiskManager.aggressive.create_risky_debator",
+    "safe": "agents.RiskManager.conservative.create_safe_debator",
+    "neutral": "agents.RiskManager.Nuetral.create_neutral_debator"
+  },
+  "trader": "agents.trader.trader.create_trader",
+  "utilities": {
+    "delete_messages": "agents.utils.agent_utils.create_msg_delete"
+  }
+}
+
