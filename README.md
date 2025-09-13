@@ -64,108 +64,60 @@ python -m pytest -q
 ## Mermaid Workflow
 The high-level system workflow is outlined below.
 ```mermaid
-graph LR
-  %% Data Sources and Tools
-  subgraph DataTools["Tools"]
-    YF["YFinance (tools/YFin.py)"]
-    GN["Google News (tools/GoogleNews.py)"]
-    RD["Reddit (tools/Reddit.py)"]
-    FH["Finnhub (tools/FInnhub.py)"]
-    SS["Stats (tools/StockStatistics.py)"]
+---
+config:
+  look: handDrawn
+  layout: elk
+---
+flowchart LR
+ subgraph DataTools["Tools & External APIs"]
+        YF["YFinance"]
+        GN["Google News"]
+        RD["Reddit"]
+        FH["Finnhub"]
   end
-
-  %% Agents
-  subgraph Agents["Agents"]
-    subgraph Analysts
-      MA["MarketAnalyst"]
-      NA["NewsAnalyst"]
-      SMA["SocialMediaAnalyst"]
-      BA["BasicAnalyst"]
-    end
-    subgraph Research
-      RM["ResearchManager"]
-      BULL["Researcher: bull"]
-      BEAR["Researcher: bear"]
-    end
-    subgraph Risk
-      AGR["RiskManager: aggressive"]
-      CON["RiskManager: conservative"]
-      NTR["RiskManager: neutral"]
-      RSK["RiskMngmnt"]
-    end
-    TRD["Trader"]
+ subgraph Risk["Risk Agents"]
+        CON["Conservative (Bearish)"]
+        NTR["Neutral"]
+        AGR["Aggressive (Bullish)"]
   end
-
-  %% Orchestration & Memory
-  subgraph Orchestration["Langgraph"]
-    TG["TradingAgentGraph"]
-    CL["ConditionalLogic"]
-    SP["SignalProcessing"]
-    RF["Reflection"]
-    PG["Propagation"]
+ subgraph Agents["Core Agents"]
+        ANA["Analyst Agent"]
+        RES["Research Manager"]
+        Risk
+        TRD["Trading Agent"]
   end
-
-  subgraph MemoryLayer["Memory & Storage"]
-    MEM["Memory (memory/)"]
-    NEON["NeonDB"]
+ subgraph MemoryLayer["Memory + DB Embeddings"]
+        EMB["Embedding Store (Vector DB)"]
+        DB["Neon / Postgres"]
   end
-
-  subgraph MCP["Zerodha MCP"]
-    SRV["MCP Server (ZerodhaMCP/server.py)"]
-    CLI["MCP Client (ZerodhaMCP/agno_client.py)"]
+ subgraph Orchestration["Agentic Orchestration"]
+        LLM["LLM Provider"]
+        GPH["AgentGraph"]
+        SIG["Signal Processing"]
+        REF["Reflection"]
   end
+ subgraph Broker["Execution Bridge"]
+        ZSRV["Zerodha MCP Server"]
+        ZCLI["Zerodha MCP Client"]
+  end
+    YF --> ANA
+    GN --> ANA
+    RD --> ANA
+    FH --> ANA
+    ANA --> RES
+    RES --> CON & NTR & AGR
+    CON --> TRD
+    NTR --> TRD
+    AGR --> TRD
+    Agents --> GPH & LLM & EMB
+    GPH --> SIG & REF & LLM
+    SIG --> TRD
+    REF --> Agents
+    EMB --> DB
+    TRD --> EMB & ZSRV
+    ZSRV --> ZCLI
 
-  %% LLMs
-  LLM["LLMs (LLMs/groq)"]
-
-  %% Data flow
-  YF --> MA
-  GN --> NA
-  RD --> SMA
-  FH --> MA
-  SS --> BA
-
-  MA --> RM
-  NA --> RM
-  SMA --> RM
-  BA --> RM
-
-  RM --> BULL
-  RM --> BEAR
-  BULL --> RSK
-  BEAR --> RSK
-
-  RSK --> AGR
-  RSK --> CON
-  RSK --> NTR
-
-  AGR --> TRD
-  CON --> TRD
-  NTR --> TRD
-
-  %% Orchestration interactions
-  Agents --> TG
-  TG --> CL
-  TG --> SP
-  TG --> RF
-  TG --> PG
-  CL --> TRD
-  SP --> TRD
-  RF --> Agents
-  PG --> Agents
-
-  %% Memory and storage
-  Agents --> MEM
-  TRD --> MEM
-  MEM --> NEON
-
-  %% LLM usage
-  Agents --> LLM
-  TG --> LLM
-
-  %% MCP bridge
-  TRD --> SRV
-  SRV --> CLI
 ```
 
 ## License
